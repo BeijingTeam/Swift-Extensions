@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 KuzmenkoFamily. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 extension String {
 
@@ -41,14 +41,25 @@ extension String {
         
         return string
     }
-
-    func attributedStringWithFont(font: UIFont) -> NSAttributedString {
-        var string = self
+    
+    var URLEncode: String {
+        var originalString = self
+        var escapedString = originalString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        return escapedString!
+    }
+    
+    var localizeDecimalSeparator: String {
+        let nf = NSNumberFormatter()
+        let separator = nf.decimalSeparator
+        var safeValue = self
         
-        let attributedString = NSMutableAttributedString(string: string)
-        attributedString.addAttribute(NSFontAttributeName, value: font, range: NSMakeRange(0, attributedString.length))
+        if separator? == "," {
+            safeValue = self.stringByReplacingOccurrencesOfString(".", withString: ",", options: nil, range: nil)
+        } else {
+            safeValue = self.stringByReplacingOccurrencesOfString(",", withString: ".", options: nil, range: nil)
+        }
         
-        return attributedString
+        return safeValue
     }
 }
 
@@ -57,16 +68,16 @@ extension String {
 */
 extension String {
     
-    func sizeWithFont(font: UIFont) -> CGSize {
+    func sizeWithFont(font: AnyObject) -> CGSize {
         let originalString = self as NSString
         return originalString.sizeWithAttributes([NSFontAttributeName: font])
     }
     
-    func widthWithFont(font: UIFont) -> CGFloat {
+    func widthWithFont(font: AnyObject) -> CGFloat {
         return sizeWithFont(font).width
     }
     
-    func heightForWidth(width: CGFloat, withFont font: UIFont) -> CGFloat {
+    func heightForWidth(width: CGFloat, withFont font: AnyObject) -> CGFloat {
         
         let attributes = [NSFontAttributeName: font]
         let textStorage = NSTextStorage(string: self, attributes: attributes)

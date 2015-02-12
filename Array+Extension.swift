@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 KuzmenkoFamily. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 extension Array {
     func indexOfObject<T: Equatable>(array: Array<T>, object: T) -> Int? {

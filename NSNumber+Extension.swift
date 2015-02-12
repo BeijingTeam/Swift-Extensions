@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 KuzmenkoFamily. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 extension NSNumber {
     
@@ -14,10 +14,28 @@ extension NSNumber {
         var formatter = NSNumberFormatter()
         formatter.numberStyle = .DecimalStyle
         
-        let number = formatter.numberFromString(value)
-        let double = number?.doubleValue
+        let separator = formatter.decimalSeparator
+        var safeValue = value
         
-        self.init(double: double!)
+        if separator? == "," {
+            safeValue = value.stringByReplacingOccurrencesOfString(".", withString: ",", options: nil, range: nil)
+        } else {
+            safeValue = value.stringByReplacingOccurrencesOfString(",", withString: ".", options: nil, range: nil)
+        }
+        
+//        safeValue = value.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil)
+        
+        if safeValue.isEmpty {
+            safeValue = "0"
+        }
+        
+        let number = formatter.numberFromString(safeValue)
+        if let double = number?.doubleValue {
+            self.init(double: double)
+        } else {
+            self.init(double: 0)
+        }
+        
     }
     
     

@@ -21,9 +21,9 @@ extension UITabBarController {
         var contentView: UIView!
         
         if view.subviews.first?.isKindOfClass(UITabBar) == true {
-            contentView = view.subviews[1] as UIView
+            contentView = view.subviews[1] as! UIView
         } else {
-            contentView = view.subviews.first as UIView
+            contentView = view.subviews.first as! UIView
         }
         
         if hidden {
@@ -54,7 +54,7 @@ extension UITabBarController {
 //                self.tabBar.hidden = false
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
                     self.tabBar.frame = tabBarframe
-                }, { (flag) -> Void in
+                }, completion: { (flag) -> Void in
                     contentView.frame = contentViewFrame
                 })
             } else {

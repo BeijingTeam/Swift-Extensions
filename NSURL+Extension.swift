@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Vitaliy Kuz'menko. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension NSURL {
     
@@ -31,7 +31,7 @@ extension NSURL {
         if let string = absoluteString {
             var error: NSError?
             let regEx = NSRegularExpression(pattern: "v=([^&]+)", options: .CaseInsensitive, error: &error)
-            let match = regEx?.firstMatchInString(string, options: nil, range: NSMakeRange(0, countElements(string)))
+            let match = regEx?.firstMatchInString(string, options: nil, range: NSMakeRange(0, count(string)))
             if match != nil {
                 let range = match!.rangeAtIndex(1)
                 let identifier = (string as NSString).substringWithRange(range)

@@ -194,7 +194,7 @@ extension NSDate {
     
     func getLocaleFormatUnderscoresWithValue(value: Double) -> String {
         
-        let localeCode = NSLocale.preferredLanguages().first as String
+        let localeCode = NSLocale.preferredLanguages().first as! String
         
         if localeCode == "ru" {
             let XY = Int(floor(value)) % 100

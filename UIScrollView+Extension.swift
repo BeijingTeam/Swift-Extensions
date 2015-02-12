@@ -12,7 +12,8 @@ extension UIScrollView {
     
     override public func sizeToFit() {
         
-        let subviews = self.subviews as Array<UIView>
+        let subviews = self.subviews as! [UIView]
+        
         var rect = CGRectZero
         
         for view in subviews {

@@ -12,7 +12,7 @@ extension NSLocale {
     
     class func languageAvailable() -> Array<String> {
         var array = Array<String>()
-        let appleLanguages = NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages") as Array<String>
+        let appleLanguages = NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages") as! [String]
         
         for language in appleLanguages {
             let path = NSBundle.mainBundle().pathForResource(language, ofType: "lproj")
@@ -28,7 +28,7 @@ extension NSLocale {
     class func languageCode() -> String {
         var languageAvailable = self.languageAvailable()
         
-        let preferredLanguages = NSLocale.preferredLanguages() as Array<String>
+        let preferredLanguages = NSLocale.preferredLanguages() as! [String]
         var currentLanguage = preferredLanguages.first
         
         if !contains(languageAvailable, currentLanguage!) {
@@ -42,7 +42,7 @@ extension NSLocale {
 
 extension NSLocale {
     var decimalSeparator: String {
-        return objectForKey(NSLocaleDecimalSeparator) as String
+        return objectForKey(NSLocaleDecimalSeparator) as! String
     }
 }
 

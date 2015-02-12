@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 KuzmenkoFamily. All rights reserved.
 //
 
-import Foundation
+
+import UIKit
 
 extension String {
 
@@ -50,16 +51,20 @@ extension String {
     
     var localizeDecimalSeparator: String {
         let nf = NSNumberFormatter()
-        let separator = nf.decimalSeparator
-        var safeValue = self
         
-        if separator? == "," {
-            safeValue = self.stringByReplacingOccurrencesOfString(".", withString: ",", options: nil, range: nil)
-        } else {
-            safeValue = self.stringByReplacingOccurrencesOfString(",", withString: ".", options: nil, range: nil)
+        if let separator = nf.decimalSeparator {
+            var safeValue = self
+            
+            if separator == "," {
+                safeValue = self.stringByReplacingOccurrencesOfString(".", withString: ",", options: nil, range: nil)
+            } else {
+                safeValue = self.stringByReplacingOccurrencesOfString(",", withString: ".", options: nil, range: nil)
+            }
+            
+            return safeValue
         }
         
-        return safeValue
+        return self
     }
 }
 
@@ -108,7 +113,7 @@ extension String {
         var resultRange = [NSRange]()
         var error: NSError?
         let reg = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
-        let range = NSMakeRange(0, countElements(self))
+        let range = NSMakeRange(0,count(self))
         
         reg?.enumerateMatchesInString(self, options: nil, range: range) { (match: NSTextCheckingResult!, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
             resultRange.append(match.range)
@@ -120,7 +125,7 @@ extension String {
     func detectURL() -> [NSRange] {
         var resultRange = [NSRange]()
         var error: NSError?
-        let range = NSMakeRange(0, countElements(self))
+        let range = NSMakeRange(0, count(self))
         let detector = NSDataDetector(types: NSTextCheckingType.Link.rawValue, error: &error)
         
         detector?.enumerateMatchesInString(self, options: nil, range: range, usingBlock: { (match: NSTextCheckingResult!, flag: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in

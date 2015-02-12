@@ -14,16 +14,19 @@ extension NSNumber {
         var formatter = NSNumberFormatter()
         formatter.numberStyle = .DecimalStyle
         
-        let separator = formatter.decimalSeparator
+        var separator = ""
+        
+        if let safeSeparator = formatter.decimalSeparator {
+            separator = safeSeparator
+        }
+        
         var safeValue = value
         
-        if separator? == "," {
+        if separator == "," {
             safeValue = value.stringByReplacingOccurrencesOfString(".", withString: ",", options: nil, range: nil)
         } else {
             safeValue = value.stringByReplacingOccurrencesOfString(",", withString: ".", options: nil, range: nil)
         }
-        
-//        safeValue = value.stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil)
         
         if safeValue.isEmpty {
             safeValue = "0"

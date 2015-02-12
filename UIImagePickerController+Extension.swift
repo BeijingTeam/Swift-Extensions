@@ -33,7 +33,7 @@ extension UIImagePickerController {
                 }
             }
             
-        }, { (flag) -> Void in
+        }, failureBlock: { (flag) -> Void in
             completion(nil)
         })
         

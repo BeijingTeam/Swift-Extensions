@@ -61,7 +61,7 @@ extension UIViewController {
     }
     
     func keyboardDidShowNotification(notification: NSNotification) {
-        let nInfo = notification.userInfo as Dictionary <String, NSValue>
+        let nInfo = notification.userInfo as! [String: NSValue]
         let value = nInfo[UIKeyboardFrameEndUserInfoKey]
         let frame = value?.CGRectValue()
         
@@ -69,7 +69,7 @@ extension UIViewController {
     }
     
     func keyboardWillShowNotification(notification: NSNotification) {
-        let nInfo = notification.userInfo as Dictionary <String, NSValue>
+        let nInfo = notification.userInfo as! [String: NSValue]
         let value = nInfo[UIKeyboardFrameEndUserInfoKey]
         let frame = value?.CGRectValue()
         
@@ -77,7 +77,7 @@ extension UIViewController {
     }
 
     func keyboardWillHideNotification(notification: NSNotification) {
-        let nInfo = notification.userInfo as Dictionary <String, NSValue>
+        let nInfo = notification.userInfo as! [String: NSValue]
         let value = nInfo[UIKeyboardFrameEndUserInfoKey]
         let frame = value?.CGRectValue()
         
@@ -85,7 +85,7 @@ extension UIViewController {
     }
     
     func keyboardDidHideNotification(notification: NSNotification) {
-        let nInfo = notification.userInfo as Dictionary <String, NSValue>
+        let nInfo = notification.userInfo as! [String: NSValue]
         let value = nInfo[UIKeyboardFrameEndUserInfoKey]
         let frame = value?.CGRectValue()
         
